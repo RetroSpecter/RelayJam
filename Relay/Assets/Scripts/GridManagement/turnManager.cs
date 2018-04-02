@@ -7,6 +7,7 @@ public class turnManager : MonoBehaviour
 
     private PlayerInputManager playerInput;
     private EnemyAI enemyInput;
+    public TurnUI turnUIDisplay;
 
     void Start() {
         playerInput = GetComponent<PlayerInputManager>();
@@ -15,15 +16,15 @@ public class turnManager : MonoBehaviour
         playerInput.switchTurn += switchTurn;
         enemyInput.switchTurn += switchTurn;
 
-        playerInput.setUnitsToActive();
+        switchTurn(true);
     }
 
     // Move to not here
     public void switchTurn(bool yourTurn) {
         if (yourTurn) {
-            playerInput.setUnitsToActive();
+            turnUIDisplay.displayUI("Player Turn", true, 1.5f, playerInput.setUnitsToActive);
         } else {
-            enemyInput.setUnitsToActive();
+            turnUIDisplay.displayUI("Enemy Turn", false, 1.5f, enemyInput.setUnitsToActive);
         }
         yourTurn = !yourTurn;
     }

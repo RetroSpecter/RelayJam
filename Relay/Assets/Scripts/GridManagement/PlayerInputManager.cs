@@ -19,8 +19,8 @@ public class PlayerInputManager : MonoBehaviour {
     public UnitInfoUI unitInfoUI;
     public CharacterOptions optionsMenu;
 
-    public Tile selectedUnit;
-    public Tile previousTile;
+    private Tile selectedUnit;
+    private Tile previousTile;
 
     public delegate void turnAction(bool yourTurn);
     public turnAction switchTurn;
@@ -152,6 +152,7 @@ public class PlayerInputManager : MonoBehaviour {
                     Unit u = selectedUnit.currentUnit;
                     previousTile = selectedUnit;
                     unitManager.moveUnit(u, t, (() => selectUnit(t)));
+                    tileSelectionActive = SelectionType.INACTIVE;
                 }
             } else {
                 if (inRangeTiles.Contains(t) && !unitManager.tileAvailable(selectedUnit, t)
@@ -161,6 +162,8 @@ public class PlayerInputManager : MonoBehaviour {
                             selectUnit(t);
                             endUnitTurn();
                     }));
+                    GridManager.instance.resetTiles();
+                    tileSelectionActive = SelectionType.INACTIVE;
                 }
             }
         }

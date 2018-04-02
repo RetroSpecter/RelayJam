@@ -53,16 +53,24 @@ public class GridEditor : MonoBehaviour {
         Tile tile = Instantiate(tileObject, position, Quaternion.identity);
         tile.transform.parent = this.transform;
 
+        bool found = false;
         if (pixelColor.a == 0) {
             tile.active = false;
+            found = true;
         } else {
             tile.active = true;
         }
+
         foreach (ColorToTile colorMapping in colorMappings) {
             if (colorMapping.color.Equals(pixelColor)) {
                 tile.setTileSettings(colorMapping);
+                found = true;
             }
         }
+
+        if(!found)
+            print("No mapping for color: RGB (" + (int)(255 * pixelColor.r) + "," + (int)(255 * pixelColor.g) + "," + (int)(255 * pixelColor.b) + ")");
+
         tile.unHighlightTile();
     }
 

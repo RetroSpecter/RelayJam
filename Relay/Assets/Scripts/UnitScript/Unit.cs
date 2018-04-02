@@ -48,26 +48,32 @@ public class Unit : MonoBehaviour {
         yield return moveToPositionEnum(this.gameObject, targetPos, 10, false);
         yield return moveToPositionEnum(this.gameObject, curPos, 10, false);
 
-        other.takeDamage(this);
-
-        if (actionFinished != null) {
-            actionFinished.Invoke();
-            actionFinished = null;
-        }
-
+        other.takeDamage(this, actionFinished);
     }
 
     /// <summary>
     /// takes damage from other unit based off of their stats
     /// </summary>
     /// <param name="other"></param>
-    public virtual void takeDamage(Unit other) {
+    public virtual void takeDamage(Unit other, action actionFinished) {
         health -= this.attack - this.defense;
         print(this.name + " took " + (this.attack - this.defense) + " from "
             + other.name);
+
+        StartCoroutine(shake.screenshake(this.gameObject, 2, 1));
+        StartCoroutine(checkHealth(actionFinished));
+    }
+
+    public IEnumerator checkHealth(action actionFinished) {
+        yield return new WaitForSeconds(0.5f);
         if (health <= 0) {
             move.Invoke(this); //unlinks old tile from this unit
             death.Invoke(this);
+        }
+
+        if (actionFinished != null) {
+            actionFinished.Invoke();
+            actionFinished = null;
         }
     }
 
