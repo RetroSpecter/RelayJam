@@ -209,7 +209,7 @@ public class PlayerInputManager : MonoBehaviour {
         inRangeTiles = GridManager.instance.getTilesInRangePassable(selectedUnit, selectedUnit.currentUnit.mobility);
         optionsMenu.hideMenu();
         foreach (Tile ts in inRangeTiles) {
-            if (ts.occupied() && ts.currentUnit != selectedUnit.currentUnit) {
+            if (ts.occupied() && ts.currentUnit is EnemyUnit) {
                 ts.GetComponent<SpriteRenderer>().color = Color.red;
             }
             else {
