@@ -27,7 +27,7 @@ public class shake : MonoBehaviour {
         Vector3 shakeUpStuff;
         Vector3 originalPosition = target.transform.position;
 
-        float z = target.transform.position.z;
+        //float z = target.transform.position.z;
         while (t > 0) {
             t -= Time.deltaTime * 10;
             shakeUpStuff = Random.insideUnitCircle * strength / 8;

@@ -15,7 +15,7 @@ public class Unit : MonoBehaviour {
 
     public Vector2Int tileCoordinate;
     public bool moved = false;
-    private SpriteRenderer sprtRend;
+    //private SpriteRenderer sprtRend;
 
     [Header("Stats")]
     public int mobility = 3;
@@ -25,7 +25,7 @@ public class Unit : MonoBehaviour {
     public int defense;
 
     private void Awake() {
-        sprtRend = GetComponent<SpriteRenderer>();
+        //sprtRend = GetComponent<SpriteRenderer>();
     }
 
     public void setActive(bool active) {
