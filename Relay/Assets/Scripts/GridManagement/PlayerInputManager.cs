@@ -122,6 +122,7 @@ public class PlayerInputManager : MonoBehaviour {
     /// </summary>
     /// <param name="t">tile we want to display information about </param>
     public void tileHover(Tile t) {
+		Debug.Log (t);
         if (tileSelectionActive == SelectionType.INACTIVE) {
             return;
         }

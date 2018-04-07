@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - AllyUnit
+  - EnemyUnit
   layers:
   - Default
   - TransparentFX
@@ -41,9 +43,9 @@ TagManager:
   - name: Tile
     uniqueID: 239262547
     locked: 0
+  - name: Citrus
+    uniqueID: 4265420765
+    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Overground
-    uniqueID: 4265420765
     locked: 0
