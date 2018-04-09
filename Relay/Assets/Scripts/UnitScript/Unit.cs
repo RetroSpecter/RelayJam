@@ -28,7 +28,7 @@ public class Unit : MonoBehaviour {
         sprtRend = GetComponent<SpriteRenderer>();
     }
 
-    public void setActive(bool active) {
+    public virtual void setActive(bool active) {
         GetComponent<SpriteRenderer>().color = active ? Color.white : Color.grey;
     }
 

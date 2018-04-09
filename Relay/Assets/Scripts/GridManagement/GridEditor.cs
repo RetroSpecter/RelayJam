@@ -11,6 +11,9 @@ public class GridEditor : MonoBehaviour {
     public Texture2D map;
     public ColorToTile[] colorMappings;
 
+	//Kenji Help
+	public Vector2 center;
+
     // For a GridEditor ge
     // ge.tileObject holds the tile gameObject to be spawned
     // ge.map is the 2d texture use to construct the map

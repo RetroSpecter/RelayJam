@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShooterAI : Unit {
+public class ShooterAI : MachineUnit {
 
 	public GameObject bullet;
 	public float firingSpeed = 1;
@@ -10,6 +10,13 @@ public class ShooterAI : Unit {
 	void LaunchBullet() {
 		GameObject shot = Instantiate (bullet, transform.position, Quaternion.identity);
 		shot.GetComponent<Rigidbody2D> ().velocity = transform.up * firingSpeed;
+	}
+
+	public override IEnumerator MachineEffect() {
+		while (true) {
+			LaunchBullet ();
+			yield return new WaitForSeconds (1);
+		}
 	}
 
 }
