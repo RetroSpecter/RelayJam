@@ -17,6 +17,11 @@ public class SteeringWheelBehavior : MachineUnit {
 	}
 
 	public override IEnumerator MachineEffect() {
+		ShooterAI[] cannons = FindObjectsOfType<ShooterAI> ();
+		for (int i = 0; i < cannons.Length; i++) {
+			cannons [i].gameObject.transform.Rotate (0, 0, 90);
+		}
+		/*
 		float currentZ = field.transform.localEulerAngles.z;
 		float targetZ = currentZ + rotationAmount;
 		while (currentZ < targetZ) {
@@ -25,7 +30,8 @@ public class SteeringWheelBehavior : MachineUnit {
 			if (currentZ > targetZ) {
 			}
 			yield return null;
-		}
+		}*/
+		yield return null;
 		//For One Shot Actions
 		ClearMachineStatus ();
 	}

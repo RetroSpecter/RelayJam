@@ -104,14 +104,13 @@ public class Unit : MonoBehaviour {
     public IEnumerator moveToTileCor(Tile dest, action actionFinished) {
 
 		Vector3 singleAxisPosition = transform.position;
-        singleAxisPosition.x = dest.transform.position.x;
-
+		singleAxisPosition.x = dest.transform.position.x;
 
         move.Invoke(this); //unlinks old tile from this unit
         dest.setUnit(this);
 
         yield return moveToPositionEnum(singleAxisPosition, 10, false);
-        yield return moveToPositionEnum(dest.transform.position, 10, false);
+		yield return moveToPositionEnum(dest.transform.position, 10, false);
 
         move += dest.unsetUnit;
 

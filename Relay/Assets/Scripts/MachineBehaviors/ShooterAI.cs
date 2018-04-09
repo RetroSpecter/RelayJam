@@ -9,6 +9,7 @@ public class ShooterAI : MachineUnit {
 
 	void LaunchBullet() {
 		GameObject shot = Instantiate (bullet, transform.position, Quaternion.identity);
+		shot.GetComponent<BulletBehavior> ().SetSource (transform);
 		shot.GetComponent<Rigidbody2D> ().velocity = transform.up * firingSpeed;
 	}
 
