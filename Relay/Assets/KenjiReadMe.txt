@@ -8,4 +8,6 @@ From Jose's stuff, I've added a couple things:
 - LemonLime
 
 
-PS. Don't make a machine that rotates the Entire Map otherwise things start to break
+PS. Don't make a machine that rotates the Entire Map otherwise things start to break. But moving it around/giving it a rigidbody is a totally viable thing to do *wink* *wink*.
+PPS. Don't remove health from units outside of turn combat otherwise BAD THINGS WILL HAPPEN. The current bullets remove attack/defense
+PPPS. Things aren't quite like things. Make things like things.

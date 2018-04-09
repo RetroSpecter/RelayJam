@@ -6,14 +6,14 @@ public class SteeringWheelBehavior : MachineUnit {
 
 	public float rotationSpeed = 5;
 	public float rotationAmount = 45;
-	GameObject field;
-	Vector2 pivot;
+	//GameObject field;
+	//Vector2 pivot;
 
 	public void Awake() {
 		base.Awake ();
-		GridEditor ge = FindObjectOfType<GridEditor> ();
-		field = ge.gameObject;
-		pivot = ge.centerOfGrid;
+		//GridEditor ge = FindObjectOfType<GridEditor> ();
+		//field = ge.gameObject;
+		//pivot = ge.centerOfGrid;
 	}
 
 	public override IEnumerator MachineEffect() {
