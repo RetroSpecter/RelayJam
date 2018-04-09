@@ -12,7 +12,7 @@ public class GridEditor : MonoBehaviour {
     public ColorToTile[] colorMappings;
 
 	//Kenji Help
-	public Vector2 center;
+	public Vector2 centerOfGrid;
 
     // For a GridEditor ge
     // ge.tileObject holds the tile gameObject to be spawned
@@ -26,12 +26,10 @@ public class GridEditor : MonoBehaviour {
     /// <param name="map">The texture we are construting the tilemap from</param>
     public void constructGrid(Texture2D map) {
         destroyAllChildren();
-
         Vector2Int gridDim = new Vector2Int(map.width, map.height);
-
         Vector3 offset = Vector3.zero;
-        offset.x = gridDim.x / 4.0f;
-        offset.y = -gridDim.y / 4.0f;
+        //offset.x = gridDim.x / 4.0f; Why were these here, Jose?
+        //offset.y = -gridDim.y / 4.0f; All it does it offset it for no reason.
         GetComponent<GridManager>().gridDim = gridDim; //updates the dimensions of the gridManager
 
         for (int i = 0; i < gridDim.x; i++) {
@@ -43,6 +41,8 @@ public class GridEditor : MonoBehaviour {
                 generateTile(targetPosition - offset, pixelColor);
             }
         }
+		centerOfGrid = new Vector2 ((float)gridDim.x/2f - 0.5f, (float)gridDim.y/2f - 0.5f);
+
     }
 
     /// <summary>
@@ -52,7 +52,6 @@ public class GridEditor : MonoBehaviour {
     /// <param name="position">position to spawn tile in</param>
     /// <param name="pixelColor">color of pixel at that position.</param>
     public void generateTile(Vector3 position, Color pixelColor) {
-
         Tile tile = Instantiate(tileObject, position, Quaternion.identity);
         tile.transform.parent = this.transform;
 
