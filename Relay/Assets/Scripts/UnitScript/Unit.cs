@@ -28,7 +28,7 @@ public class Unit : MonoBehaviour {
         sprtRend = GetComponent<SpriteRenderer>();
     }
 
-    public void setActive(bool active) {
+    public virtual void setActive(bool active) {
         GetComponent<SpriteRenderer>().color = active ? Color.white : Color.grey;
     }
 
@@ -56,13 +56,23 @@ public class Unit : MonoBehaviour {
     /// </summary>
     /// <param name="other"></param>
     public virtual void takeDamage(Unit other, action actionFinished) {
-        health -= this.attack - this.defense;
-        print(this.name + " took " + (this.attack - this.defense) + " from "
+		int damage = Mathf.Max(other.attack - this.defense, 0); //Don't take negative damage
+		health -= damage;
+        print(this.name + " took " + damage + " from "
             + other.name);
 
         StartCoroutine(shake.screenshake(this.gameObject, 2, 1));
         StartCoroutine(checkHealth(actionFinished));
     }
+
+	//Changes stats other than health; Kenji tried changing health outside of combat but that does bad things
+	//Going below zero can also cause bad things
+	public virtual void changeStats(int mobility, int attack, int attackRange, int defense) {
+		this.mobility = Mathf.Max(0, this.mobility + mobility);
+		this.attack = Mathf.Max(0, this.attack + attack);
+		this.attackRange = Mathf.Max(0, this.attackRange + attackRange);
+		this.defense = Mathf.Max(0, this.defense + defense);
+	}
 
     public IEnumerator checkHealth(action actionFinished) {
         yield return new WaitForSeconds(0.5f);
@@ -93,15 +103,14 @@ public class Unit : MonoBehaviour {
 
     public IEnumerator moveToTileCor(Tile dest, action actionFinished) {
 
-        Vector3 singleAxisPosition = transform.position;
-        singleAxisPosition.x = dest.transform.position.x;
-
+		Vector3 singleAxisPosition = transform.position;
+		singleAxisPosition.x = dest.transform.position.x;
 
         move.Invoke(this); //unlinks old tile from this unit
         dest.setUnit(this);
 
         yield return moveToPositionEnum(singleAxisPosition, 10, false);
-        yield return moveToPositionEnum(dest.transform.position, 10, false);
+		yield return moveToPositionEnum(dest.transform.position, 10, false);
 
         move += dest.unsetUnit;
 
