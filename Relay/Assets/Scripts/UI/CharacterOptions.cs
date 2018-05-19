@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterOptions : MonoBehaviour {
 
     [HideInInspector] public UnitManager gm;
-    public GameObject MoveButton, DoneButton;
+    public GameObject MoveButton, DoneButton, CancelButton, EndTurnButton;
 
     public void showMenu(Tile t) {
         MoveButton.SetActive(!t.currentUnit.moved);
@@ -15,5 +15,14 @@ public class CharacterOptions : MonoBehaviour {
 
     public void hideMenu() {
         transform.position = Vector3.one * -1000;
+    }
+
+    void Update(){
+        if (CancelButton){
+            CancelButton.SetActive(PlayerInputManager.instance.selectedUnit);
+        }
+        if (EndTurnButton){
+            EndTurnButton.SetActive(!PlayerInputManager.instance.selectedUnit);
+        }
     }
 }

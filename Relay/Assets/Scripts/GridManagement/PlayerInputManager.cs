@@ -19,13 +19,16 @@ public class PlayerInputManager : MonoBehaviour {
     public UnitInfoUI unitInfoUI;
     public CharacterOptions optionsMenu;
 
-    private Tile selectedUnit;
+    public Tile selectedUnit;
     private Tile previousTile;
 
     public delegate void turnAction(bool yourTurn);
     public turnAction switchTurn;
 
+    public static PlayerInputManager instance;
+
     void Awake() {
+        instance = this;
         unitManager = GetComponent<UnitManager>();
         heroUnits = new List<Unit>(FindObjectsOfType<HeroUnit>());
 
@@ -97,10 +100,14 @@ public class PlayerInputManager : MonoBehaviour {
         deselectUnit();
 
         if (currentActiveUnits.Count == 0) {
-            tileSelectionActive = SelectionType.INACTIVE;
-            cursor.SetActive(false);
-            switchTurn.Invoke(false);
+            EndTurn();
         }
+    }
+
+    public void EndTurn(){
+        tileSelectionActive = SelectionType.INACTIVE;
+        cursor.SetActive(false);
+        switchTurn.Invoke(false);
     }
 
     /// <summary>

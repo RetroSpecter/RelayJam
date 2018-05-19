@@ -95,6 +95,5 @@ public class ColorToTile {
     [Header("Tile Info")]
     public Color defaultColor;
     public Color selectedColor;
-    public Color unmovableColor = Color.black;
     public Unit startingUnit;
 }

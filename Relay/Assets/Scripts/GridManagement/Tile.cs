@@ -23,11 +23,15 @@ public class Tile : MonoBehaviour, IComparable<Tile> {
     public Color unmovableColor = Color.black;
 
     private void OnMouseEnter()  {
-        hover.Invoke(this);
+        if (hover != null){
+            hover.Invoke(this);
+        }
     }
 
     private void OnMouseDown() {
-        selected.Invoke(this);
+        if (selected != null){
+            selected.Invoke(this);
+        }
     }
 
     /// <summary>
@@ -67,7 +71,8 @@ public class Tile : MonoBehaviour, IComparable<Tile> {
     /// sets the tile back to its original color
     /// </summary>
     public void unHighlightTile() {
-            GetComponent<SpriteRenderer>().color = !active ? unmovableColor : defaultColor;
+            GetComponent<SpriteRenderer>().enabled = active;
+            GetComponent<SpriteRenderer>().color = defaultColor;
     }
 
     /// <summary>
