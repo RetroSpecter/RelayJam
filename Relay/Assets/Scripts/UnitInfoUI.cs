@@ -17,7 +17,7 @@ public class UnitInfoUI : MonoBehaviour {
 
     public void showStats(Unit u) {
         this.gameObject.SetActive(true);
-        Name.text = u.name;
+        Name.text = u.unitName;
         mobility.text = "speed: " + u.mobility;
         health.text = "HP: "  + u.health;
         attack.text = "attack: " + u.attack;

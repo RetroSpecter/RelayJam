@@ -7,6 +7,8 @@ using UnityEngine;
 public class Unit : MonoBehaviour {
 
     public delegate void unitAction(Unit u);
+    public string unitName;
+    public float moveSpeed = 5;
     public unitAction move;
     public unitAction death;
 
@@ -23,13 +25,21 @@ public class Unit : MonoBehaviour {
     public int attack;
     public int attackRange = 1;
     public int defense;
+    private SpriteScript sprite;
 
     private void Awake() {
         sprtRend = GetComponent<SpriteRenderer>();
+        sprite = GetComponent<SpriteScript>();
+    }
+
+    void Start(){
+        if (sprite){
+            sprite.SetAnimation("idle");
+        }
     }
 
     public virtual void setActive(bool active) {
-        GetComponent<SpriteRenderer>().color = active ? Color.white : Color.grey;
+        sprtRend.color = active ? Color.white : Color.grey;
     }
 
     /// <summary>
@@ -60,9 +70,16 @@ public class Unit : MonoBehaviour {
 		health -= damage;
         print(this.name + " took " + damage + " from "
             + other.name);
-
-        StartCoroutine(shake.screenshake(this.gameObject, 2, 1));
+        
+        StartCoroutine(GetHurt());
         StartCoroutine(checkHealth(actionFinished));
+    }
+
+    IEnumerator GetHurt(){
+        IEnumerator shakeRoutine = shake.screenshake(this.gameObject, 2, 1);
+        if (sprite) sprite.SetAnimation("hurt");
+        yield return shakeRoutine;
+        if (sprite) sprite.SetAnimation("idle");
     }
 
 	//Changes stats other than health; Kenji tried changing health outside of combat but that does bad things
@@ -108,9 +125,12 @@ public class Unit : MonoBehaviour {
 
         move.Invoke(this); //unlinks old tile from this unit
         dest.setUnit(this);
+        if (sprite) sprite.SetAnimation("move");
 
-        yield return moveToPositionEnum(singleAxisPosition, 10, false);
-		yield return moveToPositionEnum(dest.transform.position, 10, false);
+        yield return moveToPositionEnum(singleAxisPosition, moveSpeed, false);
+		yield return moveToPositionEnum(dest.transform.position, moveSpeed, false);
+
+        if (sprite) sprite.SetAnimation("idle");
 
         move += dest.unsetUnit;
 
@@ -120,6 +140,7 @@ public class Unit : MonoBehaviour {
     }
 
     private IEnumerator moveToPositionEnum(GameObject targetObject, Vector3 targetPos, float speed, bool lerp) {
+        sprtRend.flipX = (targetPos.x < transform.position.x);
         while (Vector3.Distance(targetObject.transform.position, targetPos) > 0.1f) {
             if (lerp) {
                 targetObject.transform.position = Vector3.Lerp(targetObject.transform.position, targetPos, Time.deltaTime * speed);

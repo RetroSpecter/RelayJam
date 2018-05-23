@@ -124,6 +124,12 @@ public class PlayerInputManager : MonoBehaviour {
         }
     }
 
+    public void unGrayScaleUnits(){
+        foreach (Unit us in heroUnits) {
+            us.setActive(true);
+        }
+    }
+
     /// <summary>
     /// tells tileInfo UI to display tile t information
     /// </summary>

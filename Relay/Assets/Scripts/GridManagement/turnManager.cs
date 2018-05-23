@@ -23,8 +23,10 @@ public class turnManager : MonoBehaviour
     public void switchTurn(bool yourTurn) {
         if (yourTurn) {
             turnUIDisplay.displayUI("Player Turn", true, 1.5f, playerInput.setUnitsToActive);
+            enemyInput.unGrayScaleUnits();
         } else {
             turnUIDisplay.displayUI("Enemy Turn", false, 1.5f, enemyInput.setUnitsToActive);
+            playerInput.unGrayScaleUnits();
         }
         yourTurn = !yourTurn;
     }

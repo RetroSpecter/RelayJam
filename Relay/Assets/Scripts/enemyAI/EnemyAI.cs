@@ -38,6 +38,12 @@ public class EnemyAI : MonoBehaviour {
         startEnemyTurn();
     }
 
+    public void unGrayScaleUnits(){
+        foreach (Unit us in enemyUnits) {
+            us.setActive(true);
+        }
+    }
+
     /// <summary>
     /// starts the enemies turn. Will eventually decide the enemy order
     /// </summary>
